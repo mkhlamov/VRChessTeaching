@@ -30,6 +30,18 @@ public class TileSelector : MonoBehaviour {
             tileHighlight.SetActive(true);
             tileHighlight.transform.position =
                 Geometry.PointFromGrid(gridPoint);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject selectedPiece =
+                    GameManager.instance.PieceAtGrid(gridPoint);
+                if (GameManager.instance.DoesPieceBelongToCurrentPlayer(selectedPiece))
+                {
+                    GameManager.instance.SelectPiece(selectedPiece);
+                    // Опорная точка 1: сюда мы позже добавим вызов ExitState
+                    ExitState(selectedPiece);
+                }
+            }
         }
         else
         {
@@ -40,5 +52,13 @@ public class TileSelector : MonoBehaviour {
     public void EnterState()
     {
         enabled = true;
+    }
+
+    private void ExitState(GameObject movingPiece)
+    {
+        this.enabled = false;
+        tileHighlight.SetActive(false);
+        MoveSelector move = GetComponent<MoveSelector>();
+        move.EnterState(movingPiece);
     }
 }
