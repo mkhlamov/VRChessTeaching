@@ -29,6 +29,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -185,5 +186,43 @@ public class GameManager : MonoBehaviour
         pieces[startGridPoint.x, startGridPoint.y] = null;
         pieces[gridPoint.x, gridPoint.y] = piece;
         board.MovePiece(piece, gridPoint);
+    }
+
+    public List<Vector2Int> MovesForPiece(GameObject pieceObject)
+    {
+        Piece piece = pieceObject.GetComponent<Piece>();
+        Vector2Int gridPoint = GridForPiece(pieceObject);
+        var locations = piece.MoveLocations(gridPoint);
+
+        // Отфильтровываем позиции за пределами доски
+        locations.RemoveAll(tile => tile.x < 0 || tile.x > 7
+            || tile.y < 0 || tile.y > 7);
+
+        // Отфильтровываем позиции с фигурами игрока
+        locations.RemoveAll(tile => FriendlyPieceAt(tile));
+
+        return locations;
+    }
+
+    public void NextPlayer()
+    {
+        Player tempPlayer = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = tempPlayer;
+    }
+
+    public void CapturePieceAt(Vector2Int gridPoint)
+    {
+        GameObject pieceToCapture = PieceAtGrid(gridPoint);
+        currentPlayer.capturedPieces.Add(pieceToCapture);
+        pieces[gridPoint.x, gridPoint.y] = null;
+
+        if (pieceToCapture.GetComponent<Piece>().type == PieceType.King)
+        {
+            Debug.Log(currentPlayer.name + " wins!");
+            Destroy(board.GetComponent<TileSelector>());
+            Destroy(board.GetComponent<MoveSelector>());
+        }
+        Destroy(pieceToCapture);
     }
 }
