@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public GameObject blackPawn;
 
     private GameObject[,] pieces;
+    private List<GameObject> movedPawns;
 
     private Player white;
     private Player black;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         pieces = new GameObject[8, 8];
+        movedPawns = new List<GameObject>();
 
         white = new Player("white", true);
         black = new Player("black", false);
@@ -180,8 +182,23 @@ public class GameManager : MonoBehaviour
         return currentPlayer.pieces.Contains(piece);
     }
 
+    public void MovedPawn(GameObject pawn)
+    {
+        movedPawns.Add(pawn);
+    }
+
+    public bool HasMovedPawn(GameObject pawn)
+    {
+        return movedPawns.Contains(pawn);
+    }
+
     public void Move(GameObject piece, Vector2Int gridPoint)
     {
+        Piece p = piece.GetComponent<Piece>();
+        if (p.type == PieceType.Pawn && !HasMovedPawn(piece))
+        {
+            MovedPawn(piece);
+        }
         Vector2Int startGridPoint = GridForPiece(piece);
         pieces[startGridPoint.x, startGridPoint.y] = null;
         pieces[gridPoint.x, gridPoint.y] = piece;
