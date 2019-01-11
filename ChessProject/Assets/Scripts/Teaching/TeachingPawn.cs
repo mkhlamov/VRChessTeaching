@@ -21,7 +21,6 @@ public class TeachingPawn : TeachingPiece {
     public new void MakeLesson()
     {
         Debug.Log("pawn make lesson");
-        TeachingManager.instance.small.gameObject.SetActive(false);
         base.MakeLesson();
     }
 
@@ -51,7 +50,7 @@ public class TeachingPawn : TeachingPiece {
 
         Vector3[] pathD = new Vector3[2];
         pathD[0] = pawnMove.transform.position;
-        pathD[1] = new Vector3(pawnMove.transform.position.x + 2, pawnMove.transform.position.y, pawnMove.transform.position.z + 2);
+        pathD[1] = new Vector3(pawnMove.transform.position.x + 1, pawnMove.transform.position.y, pawnMove.transform.position.z + 1);
 
         Vector3[] pathE = new Vector3[2];
         pathE[0] = pawnBlack.transform.position;

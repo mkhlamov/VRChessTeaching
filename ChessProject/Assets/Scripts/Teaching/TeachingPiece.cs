@@ -23,6 +23,7 @@ public class TeachingPiece : MonoBehaviour {
         Debug.Log("piece make lesson");
         text.text = description;
 
+        TeachingManager.instance.small.gameObject.SetActive(false);
         TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhileLocations, startBlackLocations, this);
 
         Animate();
