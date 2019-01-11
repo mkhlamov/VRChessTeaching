@@ -25,6 +25,7 @@ public class TeachingPiece : MonoBehaviour {
 
         TeachingManager.instance.small.gameObject.SetActive(false);
         TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhileLocations, startBlackLocations, this);
+        
 
         Animate();
     }
@@ -33,4 +34,10 @@ public class TeachingPiece : MonoBehaviour {
     {
         Debug.Log("piece animate");
     }
+
+    public virtual void Clear()
+    {
+
+    }
+
 }

@@ -7,10 +7,13 @@ public class TeachingKnight : TeachingPiece {
 
     public GameObject tilePrefab;
     public GameObject board;
-    private GameObject tileHighlight;
+
+    //private GameObject tileHighlight;
+    private List<GameObject> highlighted;
 
     private void Start()
     {
+        highlighted = new List<GameObject>();
         description = "Начальная позиция: b1 и g1 у белых, b8 и g8 у черных." +
             "Конь перемешается на 1 клетку вперед и одну по диагонали и только на поле противоположного цвета полю на котором он находится в начале хода.";
 
@@ -31,11 +34,12 @@ public class TeachingKnight : TeachingPiece {
     {
         //Vector2Int gridPoint = Geometry.GridPoint(x, y);
         Vector3 point = p; // Geometry.PointFromGrid(gridPoint);
-        tileHighlight = Instantiate(tilePrefab, point, Quaternion.identity, board.transform);
+        GameObject tileHighlight = Instantiate(tilePrefab, point, Quaternion.identity, board.transform);
         tileHighlight.transform.localScale /= board.transform.localScale.x;
         Vector3 pos = tileHighlight.transform.localPosition;
         pos.z = 0.0013f;
         tileHighlight.transform.localPosition = pos;
+        highlighted.Add(tileHighlight);
     }
 
     public override void Animate()
@@ -91,4 +95,12 @@ public class TeachingKnight : TeachingPiece {
             .SetLoops(-1);
     }
 
+    public override void Clear()
+    {
+        foreach (GameObject o in highlighted)
+        {
+            Destroy(o);
+        }
+        highlighted.Clear();
+    }
 }
