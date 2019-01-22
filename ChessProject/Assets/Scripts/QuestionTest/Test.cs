@@ -30,9 +30,9 @@ public class Test : MonoBehaviour {
         foreach (TestQuestion q in questions)
         {
             q.answers.Shuffle();
-            Debug.Log(q.question);
         }
 
+        rightAnswersCount = 0;
         currentQuestion = 0;
         showQuestion(currentQuestion);
     }
@@ -52,17 +52,20 @@ public class Test : MonoBehaviour {
             BoxCollider collider = answer.GetComponent<BoxCollider>();
             RectTransform image = answer.transform.GetChild(0).transform.GetComponent<RectTransform>();
 
-            Debug.Log("collider size: " + answer.transform.GetComponent<RectTransform>().rect.width + " " +
-                                (answer.transform.GetComponent<RectTransform>().rect.height).ToString());
-            Debug.Log("image size: " + image.rect.width + " " + image.rect.height);
-
-
-            collider.size = new Vector3(answer.transform.GetComponent<RectTransform>().rect.width - image.rect.width,
-                                        answer.transform.GetComponent<RectTransform>().rect.height - image.rect.height, 
-                                        0.01f);
-
             answer.SetActive(true);
+            StartCoroutine(SetColliderSize(collider, image));
+
+            //collider.size = new Vector3(image.rect.width, image.rect.height, 0.01f);
         }
+    }
+
+    IEnumerator SetColliderSize(BoxCollider c, RectTransform t)
+    {
+        //размеры изображений рассчитываются после того, как все объекты answer добавлены,
+        // поэтому надо ждать конца кадра, чтобы у коллайдеров были правильные размеры.
+        yield return new WaitForEndOfFrame();
+
+        c.size = new Vector3(t.rect.width, t.rect.height, 0.01f);
     }
 
     public void ClearQuestion()
@@ -95,13 +98,14 @@ public class Test : MonoBehaviour {
         questionsUI.SetActive(false);
         resultsUI.SetActive(true);
 
-        resultText.text = "Результаты: " + rightAnswersCount.ToString() + "правильных ответов из " + questions.Count + "\n";
+        resultText.text = "Результаты: " + rightAnswersCount.ToString() + " из " + questions.Count + "ответов." + "\n";
 
-        if (rightAnswersCount / questions.Count < 0.5)
+        float rightAnswerPercentage = (float)rightAnswersCount / (float)questions.Count;
+        if (rightAnswerPercentage < 0.5)
         {
             resultText.text = resultText.text + "Слабовательно. Давай еще раз.";
             startTest.text = "Начать заново";
-        } else if (rightAnswersCount / questions.Count < 0.8)
+        } else if (rightAnswerPercentage < 0.8)
         {
             resultText.text = resultText.text + "Неплохо, но надо лучше.";
             startTest.text = "Начать заново";
