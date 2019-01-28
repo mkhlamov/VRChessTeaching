@@ -79,12 +79,13 @@ public class Test : MonoBehaviour {
 
     public void NextQuestion(TestAnswerUI ta)
     {
+        if (ta.isRight)
+        {
+            rightAnswersCount += 1;
+        }
+
         if (currentQuestion < questions.Count - 1)
         {
-            if (ta.isRight)
-            {
-                rightAnswersCount += 1;
-            }
             currentQuestion++;
             showQuestion(currentQuestion);
         } else
@@ -98,7 +99,7 @@ public class Test : MonoBehaviour {
         questionsUI.SetActive(false);
         resultsUI.SetActive(true);
 
-        resultText.text = "Результаты: " + rightAnswersCount.ToString() + " из " + questions.Count + "ответов." + "\n";
+        resultText.text = "Результаты: " + rightAnswersCount.ToString() + " из " + questions.Count + " ответов." + "\n";
 
         float rightAnswerPercentage = (float)rightAnswersCount / (float)questions.Count;
         if (rightAnswerPercentage < 0.5)

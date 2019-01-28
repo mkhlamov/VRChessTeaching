@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1612,12 +1612,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &621210467 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114558290029413600, guid: e567d8b2c6bf2374f8a2214441e0cab2,
-    type: 2}
-  m_PrefabInternal: {fileID: 2044196452}
-  m_Script: {fileID: 11500000, guid: 09d3bf7b6db19b24396f3c1a5db50c9f, type: 3}
 --- !u!4 &642967797 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 482300, guid: 60270cf52a5e94998a5a335989159738,
@@ -4375,15 +4369,15 @@ MonoBehaviour:
   onBarFilled:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 621210467}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 0}
+        m_MethodName: MakeLesson
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: interactiveTest
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -4959,48 +4953,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1001 &2044196452
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 3.7438364
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.0690737
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1.4867764
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932997254127924, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e567d8b2c6bf2374f8a2214441e0cab2, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &2046749996
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/teaching.unity
     guid: 9fd9e1e2a772b1a41bf73243aa10544b
+  - enabled: 1
+    path: Assets/Scenes/questionsTest.unity
+    guid: 732053eceea54de428dbfd17becfaf83
+  - enabled: 1
+    path: Assets/Scenes/interactiveTest.unity
+    guid: 2d8bcad365324a04d95cd159ba7748e3
   m_configObjects: {}
