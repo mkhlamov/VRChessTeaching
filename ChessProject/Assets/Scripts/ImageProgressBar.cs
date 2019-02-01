@@ -16,9 +16,13 @@ public class ImageProgressBar : MonoBehaviour
 	// Время в секундах необходимое для заполнения Progressbar'а
 	public float timeToFill = 1.0f;
 
+    public bool enableImage = true;
+
 	// Переменная, куда будет сохранена ссылка на компонент Image
 	// текущего объекта, который является ProgressBar'ом
 	private Image progressBarImage = null;
+
+    private Image uiImage = null;
 	public Coroutine barFillCoroutine = null;
 
     private bool fillingProcessIsRunning = false;
@@ -42,12 +46,22 @@ public class ImageProgressBar : MonoBehaviour
 			Debug.LogError("There is no referenced image on this component!");
 		}
 
+        uiImage = transform.GetChild(0).GetComponent<Image>();
+        if (!enableImage)
+        {
+            uiImage.enabled = false;
+        }
+
 	}
 
 	public void StartFillingProgressBar()
 	{
         if (gazeOver && !fillingProcessIsRunning)
         {
+            if (!enableImage)
+            {
+                uiImage.enabled = true;
+            }
             barFillCoroutine = StartCoroutine("Fill");
             fillingProcessIsRunning = true;
         }
@@ -57,6 +71,10 @@ public class ImageProgressBar : MonoBehaviour
 	{
         if (!gazeOver && fillingProcessIsRunning)
         {
+            if (!enableImage)
+            {
+                uiImage.enabled = false;
+            }
             StopCoroutine(barFillCoroutine);
             progressBarImage.fillAmount = 0.0f;
             fillingProcessIsRunning = false;
@@ -65,7 +83,9 @@ public class ImageProgressBar : MonoBehaviour
 
 	IEnumerator Fill()
 	{
-		float startTime = Time.time;
+        
+
+        float startTime = Time.time;
 		float overTime = startTime + timeToFill;
 
 		while(Time.time < overTime)
@@ -76,6 +96,7 @@ public class ImageProgressBar : MonoBehaviour
 
 		progressBarImage.fillAmount = 0.0f;
 
+
 		if(onBarFilled != null)
 		{
 			onBarFilled.Invoke();
@@ -85,5 +106,10 @@ public class ImageProgressBar : MonoBehaviour
         {
             transform.parent.gameObject.SetActive(false);
         }
-	}
+
+        if (!enableImage)
+        {
+            uiImage.enabled = false;
+        }
+    }
 }

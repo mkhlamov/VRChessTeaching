@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - VR_UI
+  - ChessBoard
   layers:
   - Default
   - TransparentFX

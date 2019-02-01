@@ -43,4 +43,6 @@ public abstract class Piece : MonoBehaviour
         new Vector2Int(-1, -1), new Vector2Int(-1, 1)};
 
     public abstract List<Vector2Int> MoveLocations(Vector2Int gridPoint);
+
+    public List<Vector2Int> possibleStartLocations;
 }
