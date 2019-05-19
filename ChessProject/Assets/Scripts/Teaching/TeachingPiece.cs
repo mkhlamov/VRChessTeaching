@@ -47,11 +47,22 @@ public class TeachingPiece : MonoBehaviour {
     {
         text.text = descriptionTest;
 
+        if (startWhileLocationsTest.Count == 0)
+        {
+            startWhileLocationsTest.Add(startWhileLocations[Random.Range(0, startWhileLocations.Count)]);
+        }
         TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhileLocationsTest, startBlackLocationsTest, this);
     }
 
     public virtual bool CheckTest(GameObject tile) {
-        return false;
+        if (TeachingManager.instance.currentPiece != null)
+        {
+            List<Vector2Int> locations = whitePiecePrefab.GetComponent<Piece>().MoveLocations(startWhileLocationsTest[0]);
+            return locations.Contains(Geometry.GridFromPoint(tile.transform.position));
+        } else
+        {
+            return false;
+        }
     }
 
 }

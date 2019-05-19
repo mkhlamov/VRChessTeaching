@@ -48,7 +48,8 @@ public class InteractiveTest : MonoBehaviour {
                 if (hit.collider.gameObject.CompareTag("ChessBoard"))
                 {
                     Vector3 point = hit.point;
-                    selectedPiece.transform.position = new Vector3(point.x, 0f, point.z);
+                    //selectedPiece.transform.position = new Vector3(point.x, 0f, point.z);
+                    selectedPiece.transform.position = Geometry.PointFromGrid(Geometry.GridFromPoint(new Vector3(point.x, 0f, point.z)));
                 }
             }
         }
@@ -71,6 +72,7 @@ public class InteractiveTest : MonoBehaviour {
         TeachingManager.instance.small.enabled = true;
         TeachingManager.instance.small.text = checkRes ? "Верный ответ" : "Неверный ответ";
         nextQuestionBt.SetActive(true);
+        currentQuestion++;
         state = State.Moved;
     }
 

@@ -41,11 +41,8 @@ public class TeachingManager : MonoBehaviour {
     {
         pieces = new GameObject[8, 8];
 
-        Debug.Log("teaching manager start pieces: " + pieces);
-
         white = new Player("white", true);
         black = new Player("black", false);
-
     }
 
 

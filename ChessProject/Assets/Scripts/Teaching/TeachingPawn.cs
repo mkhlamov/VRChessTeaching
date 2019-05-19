@@ -14,11 +14,13 @@ public class TeachingPawn : TeachingPiece
 
         descriptionTest = "Переместите пешку на любую возможную начальную позицию";
 
+        //TEACHING
         startWhileLocations.Add(new Vector2Int(1, 1));
         startWhileLocations.Add(new Vector2Int(4, 4));
 
         startBlackLocations.Add(new Vector2Int(5, 5));
 
+        //TEST
         startWhileLocationsTest.Add(new Vector2Int(0, 0));
     }
 
