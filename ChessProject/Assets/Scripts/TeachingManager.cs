@@ -43,7 +43,6 @@ public class TeachingManager : MonoBehaviour {
 
         white = new Player("white", true);
         black = new Player("black", false);
-
     }
 
 
@@ -65,7 +64,9 @@ public class TeachingManager : MonoBehaviour {
         {
             for (int j = 0; j < 8; j++)
             {
-                Destroy(pieces[i, j]);
+                if (pieces[i, j] != null) {
+                    Destroy(pieces[i, j]);
+                }
             }
         }
 
@@ -88,5 +89,30 @@ public class TeachingManager : MonoBehaviour {
         }
 
         currentPiece = curPiece;
+    }
+
+    public bool CheckStartPosition(Piece p) {
+        bool res = true;
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (pieces[i, j] && pieces[i, j].GetComponent<Piece>().type == p.type)
+                {
+                    res = res && (p.possibleStartLocations.Contains(new Vector2Int(i, j)));
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public GameObject PieceAtGrid(Vector2Int gridPoint)
+    {
+        if (gridPoint.x > 7 || gridPoint.y > 7 || gridPoint.x < 0 || gridPoint.y < 0)
+        {
+            return null;
+        }
+        return pieces[gridPoint.x, gridPoint.y];
     }
 }

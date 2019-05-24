@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class TeachingPawn : TeachingPiece {
+public class TeachingPawn : TeachingPiece
+{
 
     private void Start()
     {
@@ -11,23 +12,26 @@ public class TeachingPawn : TeachingPiece {
             "Исключение для начальной позиции, например, белая пешка на втором ряду и черная пешка на 7 ряду может пойти сразу на 2 поля вперед.\n" +
             "Пешки перемещаются только по вертикали, но взятия совершают по диагонали, влево или вправо.";
 
-        startWhileLocations.Add(new Vector2Int(1, 1));
-        startWhileLocations.Add(new Vector2Int(4, 4));
+        descriptionTest = "Переместите пешку на любую возможную начальную позицию";
+
+        //TEACHING
+        startWhiteLocations.Add(new Vector2Int(1, 1));
+        startWhiteLocations.Add(new Vector2Int(4, 4));
 
         startBlackLocations.Add(new Vector2Int(5, 5));
+
+        //TEST
+        startWhileLocationsTest.Add(new Vector2Int(0, 0));
     }
 
 
     public new void MakeLesson()
     {
-        Debug.Log("pawn make lesson");
         base.MakeLesson();
     }
 
     public override void Animate()
     {
-        Debug.Log("pawn animate");
-
         TeachingManager.instance.small.gameObject.SetActive(true);
         Sequence mySequence = DOTween.Sequence();
 
@@ -43,7 +47,7 @@ public class TeachingPawn : TeachingPiece {
         pathB[0] = pawnStart.transform.position;
         pathB[1] = new Vector3(pawnStart.transform.position.x, pawnStart.transform.position.y, pawnStart.transform.position.z + 2);
 
-        
+
         Vector3[] pathC = new Vector3[2];
         pathC[0] = pawnMove.transform.position;
         pathC[1] = new Vector3(pawnMove.transform.position.x, pawnMove.transform.position.y, pawnMove.transform.position.z + 1);
@@ -65,5 +69,16 @@ public class TeachingPawn : TeachingPiece {
             .Append(pawnMove.transform.DOPath(pathD, 3.0f, resolution: 5))
             .Append(pawnBlack.transform.DOPath(pathE, 3.0f, resolution: 5))
             .SetLoops(-1);
+    }
+
+    public override void MakeTest()
+    {
+        base.MakeTest();
+    }
+
+    public override bool CheckTest(GameObject tile)
+    {
+        Vector2Int gridPoint = Geometry.GridFromPoint(tile.transform.position);
+        return gridPoint.y == 1;
     }
 }

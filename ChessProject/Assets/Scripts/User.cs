@@ -25,6 +25,12 @@ public class User : MonoBehaviour {
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.gameObject.CompareTag("VR_UI")) {
+
+
+                if (imgProgressBar != null && imgProgressBar.gameObject != hit.collider.gameObject) {
+                    StopFilling();
+                }
+
                 imgProgressBar = hit.collider.gameObject.GetComponent<ImageProgressBar>();
                 imgProgressBar.GazeOver = true;
                 imgProgressBar.StartFillingProgressBar();
@@ -35,12 +41,17 @@ public class User : MonoBehaviour {
 
         else if (imgProgressBar != null)
         {
-            imgProgressBar.GazeOver = false;
-            imgProgressBar.StopFillingProgressBar();
-            imgProgressBar = null;
+            StopFilling();
             return;
         }
 
+    }
+
+    private void StopFilling()
+    {
+        imgProgressBar.GazeOver = false;
+        imgProgressBar.StopFillingProgressBar();
+        imgProgressBar = null;
     }
 
     private void Update()

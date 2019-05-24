@@ -10,8 +10,8 @@ public class TeachingRook : TeachingPiece {
         description = "Начальная позиция: a1 и h1 у белых, a8 и h8 у черных." +
             "Ладья может перемещаться на любое количество полей вдоль горизонтали или вертикали.";
 
-        startWhileLocations.Add(new Vector2Int(0, 0));
-        startWhileLocations.Add(new Vector2Int(2, 4));
+        startWhiteLocations.Add(new Vector2Int(0, 0));
+        startWhiteLocations.Add(new Vector2Int(2, 4));
 
         startBlackLocations.Add(new Vector2Int(6, 4));
     }
