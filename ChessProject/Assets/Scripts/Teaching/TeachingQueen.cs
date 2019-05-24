@@ -10,7 +10,7 @@ public class TeachingQueen : TeachingPiece {
         description = "Начальная позиция: d1 у белых, d8 у черных." +
             "Ферзь может перемещаться на любое число полей по вертикали, горизонтали и диагонали.";
 
-        startWhileLocations.Add(new Vector2Int(3, 3));
+        startWhiteLocations.Add(new Vector2Int(3, 3));
 
         //bot left
         startBlackLocations.Add(new Vector2Int(4, 4));

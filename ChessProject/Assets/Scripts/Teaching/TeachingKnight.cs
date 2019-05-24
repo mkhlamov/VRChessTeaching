@@ -17,7 +17,7 @@ public class TeachingKnight : TeachingPiece {
         description = "Начальная позиция: b1 и g1 у белых, b8 и g8 у черных." +
             "Конь перемешается на 1 клетку вперед и одну по диагонали и только на поле противоположного цвета полю на котором он находится в начале хода.";
 
-        startWhileLocations.Add(new Vector2Int(3, 3));
+        startWhiteLocations.Add(new Vector2Int(3, 3));
 
         //bot left
         startBlackLocations.Add(new Vector2Int(2, 1));

@@ -8,7 +8,7 @@ public class TeachingPiece : MonoBehaviour {
 
     public string description;
     public string descriptionTest;
-    public List<Vector2Int> startWhileLocations;
+    public List<Vector2Int> startWhiteLocations;
     public List<Vector2Int> startBlackLocations;
     public List<Vector2Int> startWhileLocationsTest;
     public List<Vector2Int> startBlackLocationsTest;
@@ -27,7 +27,7 @@ public class TeachingPiece : MonoBehaviour {
         text.text = description;
 
         TeachingManager.instance.small.gameObject.SetActive(false);
-        TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhileLocations, startBlackLocations, this);
+        TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhiteLocations, startBlackLocations, this);
         
 
         Animate();
@@ -49,7 +49,7 @@ public class TeachingPiece : MonoBehaviour {
 
         if (startWhileLocationsTest.Count == 0)
         {
-            startWhileLocationsTest.Add(startWhileLocations[Random.Range(0, startWhileLocations.Count)]);
+            startWhileLocationsTest.Add(startWhiteLocations[Random.Range(0, startWhiteLocations.Count)]);
         }
         TeachingManager.instance.SetupForPiece(whitePiecePrefab, blackPiecePrefab, startWhileLocationsTest, startBlackLocationsTest, this);
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum State { Start, FigureChosen, Moved };
 
@@ -17,21 +18,52 @@ public class InteractiveTest : MonoBehaviour {
     private State state = State.Start;
     private GameObject selectedPiece = null;
     private int currentQuestion;
-    private int currentRightAnswers;
+    private int rightAnswersCount;
+    [SerializeField]
+    private GameObject resultsUI;
+    [SerializeField]
+    private Text resultText;
+    [SerializeField]
+    private GameObject nextQuestionGO;
+    [SerializeField]
+    private GameObject startTestGO;
+    [SerializeField]
+    private Text startTestText;
+    [SerializeField]
+    private GameObject goToTeachingGO;
+    [SerializeField]
+    private GameObject taskTextGO;
 
     private void Start()
     {
+        nextQuestionGO.SetActive(false);
+        startTestGO.SetActive(true);
+        goToTeachingGO.SetActive(false);
+        resultsUI.SetActive(false);
+        taskTextGO.SetActive(false);
+    }
+
+    public void StartTest() {
         state = State.Start;
+        TeachingManager.instance.small.enabled = false;
+        nextQuestionGO.SetActive(false);
+        startTestGO.SetActive(false);
+        goToTeachingGO.SetActive(false);
+        resultsUI.SetActive(false);
+        taskTextGO.SetActive(true);
+
+        questions.Clear();
         foreach (Transform t in gameObject.transform)
         {
             TeachingPiece tp = t.GetComponent<TeachingPiece>();
-            if (tp != null)
+            if (t.gameObject.activeSelf && tp != null)
             {
                 questions.Add(tp);
             }
         }
         questions.Shuffle();
         currentQuestion = 0;
+        rightAnswersCount = 0;
         questions[currentQuestion].MakeTest();
     }
 
@@ -69,19 +101,29 @@ public class InteractiveTest : MonoBehaviour {
     private void CheckAnswer(GameObject tile)
     {
         bool checkRes = TeachingManager.instance.currentPiece.CheckTest(tile);
+        rightAnswersCount += checkRes ? 1 : 0;
         TeachingManager.instance.small.enabled = true;
         TeachingManager.instance.small.text = checkRes ? "Верный ответ" : "Неверный ответ";
         nextQuestionBt.SetActive(true);
         currentQuestion++;
         state = State.Moved;
+        nextQuestionGO.SetActive(true);
+        if (currentQuestion == questions.Count)
+        {
+            TestEnd();
+        }
     }
 
     private void ShowNextQuestion()
     {
-        TeachingManager.instance.small.enabled = false;
-        nextQuestionBt.SetActive(false);
-        questions[currentQuestion].MakeTest();
-        state = State.Start;
+        if (currentQuestion < questions.Count)
+        {
+            TeachingManager.instance.small.enabled = false;
+            nextQuestionBt.SetActive(false);
+            questions[currentQuestion].MakeTest();
+            state = State.Start;
+            nextQuestionGO.SetActive(false);
+        }
     }
 
     public void NextState(GameObject tile)
@@ -100,5 +142,36 @@ public class InteractiveTest : MonoBehaviour {
                 ShowNextQuestion();
             }
         }
+    }
+
+    public void TestEnd()
+    {
+        nextQuestionBt.SetActive(false);
+        resultsUI.SetActive(true);
+        taskTextGO.SetActive(false);
+
+        resultText.text = "Результаты: " + rightAnswersCount.ToString() + " из " + questions.Count + " ответов." + "\n";
+
+        float rightAnswerPercentage = (float)rightAnswersCount / (float)questions.Count;
+        if (rightAnswerPercentage < 0.5)
+        {
+            resultText.text = resultText.text + "Слабовательно. Давай еще раз.";
+            startTestText.text = "Начать заново";
+            startTestGO.SetActive(true);
+        }
+        else if (rightAnswerPercentage < 0.8)
+        {
+            resultText.text = resultText.text + "Неплохо, но надо лучше.";
+            startTestText.text = "Начать заново";
+            startTestGO.SetActive(true);
+        }
+        else
+        {
+            resultText.text = resultText.text + "Сойдет. Поздравляю, вы сдали тесты.";
+            startTestGO.SetActive(true);
+            startTestText.text = "Начать заново";
+            goToTeachingGO.SetActive(true);
+        }
+
     }
 }

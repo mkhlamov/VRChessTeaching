@@ -35,8 +35,6 @@ public class ImageProgressBar : MonoBehaviour
 
 	void Start ()
 	{
-		// Получаем ссылку на компонент Image текущего объекта при
-		// помощи метода GetComponent<>();
 		progressBarImage = GetComponent<Image>();
 
 		// Если у данного объекта нет компонента Image выводим ошибку

@@ -12,8 +12,8 @@ public class TeachingBishop : TeachingPiece {
             "В начальной позиции у каждого игрока один слон располагается на белом поле, другой - на черном." +
             "Они называются соответственно белопольным и чернопольным.";
 
-        startWhileLocations.Add(new Vector2Int(2, 0));
-        startWhileLocations.Add(new Vector2Int(3, 4));
+        startWhiteLocations.Add(new Vector2Int(2, 0));
+        startWhiteLocations.Add(new Vector2Int(3, 4));
 
         startBlackLocations.Add(new Vector2Int(5, 6));
     }

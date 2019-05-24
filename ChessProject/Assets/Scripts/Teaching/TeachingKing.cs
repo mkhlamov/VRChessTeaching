@@ -10,7 +10,7 @@ public class TeachingKing : TeachingPiece {
         description = "Начальная позиция: e1 у белых, e8 у черных." +
             "Король может перемещаться на одно поле по вертикали, горизонтали и диагонали.";
 
-        startWhileLocations.Add(new Vector2Int(3, 3));
+        startWhiteLocations.Add(new Vector2Int(3, 3));
 
         //startBlackLocations.Add(new Vector2Int(4, 4));
     }
