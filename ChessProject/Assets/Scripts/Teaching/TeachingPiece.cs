@@ -16,6 +16,7 @@ public class TeachingPiece : MonoBehaviour {
     public GameObject blackPiecePrefab;
 
     public TextMeshProUGUI text;
+    public Text interactiveTestText;
 
     private void Start()
     {
@@ -23,7 +24,6 @@ public class TeachingPiece : MonoBehaviour {
     }
 
     public void MakeLesson() {
-        Debug.Log("piece make lesson");
         text.text = description;
 
         TeachingManager.instance.small.gameObject.SetActive(false);
@@ -45,7 +45,13 @@ public class TeachingPiece : MonoBehaviour {
 
     public virtual void MakeTest()
     {
-        text.text = descriptionTest;
+        if (string.IsNullOrEmpty(descriptionTest))
+        {
+            interactiveTestText.text = "Сделайте возможный ход фигурой";
+        } else {
+            interactiveTestText.text = descriptionTest;
+        }
+        
 
         if (startWhileLocationsTest.Count == 0)
         {
